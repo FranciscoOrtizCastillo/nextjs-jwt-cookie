@@ -2,33 +2,52 @@ import axios from "axios";
 import { useState } from "react";
 import { useRouter } from "next/router";
 
-function Dashboard() {
+function DashboardPage() {
+
   const [user, setUser] = useState({
     email: "",
     username: "",
   });
+
   const router = useRouter();
 
   const getProfile = async () => {
-    const profile = await axios.get("/api/profile");
-    setUser(profile.data);
+    try {
+      const profile = await axios.get("/api/profile");
+      //console.log(profile.data);
+      setUser(profile.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const logout = async () => {
     try {
-      await axios.get("/api/auth/logout");
+      const response = await axios.post("/api/auth/logout");
+      //console.log(response);
     } catch (error) {
       console.error(error.message);
     }
     router.push("/login");
   };
+
   return (
-    <div>
-      {JSON.stringify(user)}
-      <button onClick={() => getProfile()}>profile</button>
-      <button onClick={() => logout()}>Logout</button>
-    </div>
+    <main className="bg-dark text-white">
+      <h1 className="text-center">Dashboard</h1>
+      <section className="vh-100">
+        <div className="container py-5 h-100">
+          <div className="row d-flex align-items-center justify-content-center h-20">
+            <pre className="col-auto">{JSON.stringify(user,null,2)}</pre>
+          </div>
+            <div className="row d-flex align-items-center justify-content-center">
+              <button className="col-2 mx-5 btn btn-primary" onClick={() => getProfile()}>Get Profile</button>
+              <button className="col-2 mx-5 btn btn-primary" onClick={() => logout()}>Logout</button>
+            </div>
+          
+        </div>
+      </section>
+    </main>
   );
 }
 
-export default Dashboard;
+export default DashboardPage;

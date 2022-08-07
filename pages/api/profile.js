@@ -7,6 +7,13 @@ export default function profileHandler(req, res) {
     return res.status(401).json({ error: "Not logged in" });
   }
 
-  const { email } = jwt.verify(myTokenName, "secret");
-  return res.status(200).json({ email });
+  //const data = jwt.verify(myTokenName, process.env.SECRET);
+  //console.log(data)
+  try {
+    const { email, username } = jwt.verify(myTokenName, process.env.SECRET);  
+    return res.status(200).json({ email, username });
+  }
+  catch (error) {
+    return res.status(401).json({ error: "Invalid token" });
+  }
 }
