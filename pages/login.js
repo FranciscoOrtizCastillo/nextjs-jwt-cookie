@@ -28,7 +28,7 @@ function LoginPage() {
       //console.log(res);
 
       if (res.status === 200) {
-        router.push("/dashboard");
+        router.push("/private/dashboard");
       }
     }
     catch (err) {
@@ -37,7 +37,7 @@ function LoginPage() {
   };
 
   return (
-      <section className="bg-dark text-white vh-100">
+      <section className="bg-light text-black vh-100">
         <div className="container py-5 h-100">
           <div className="row d-flex align-items-center justify-content-center h-100">
             <div className="col-md-8 col-lg-7 col-xl-6">
@@ -49,24 +49,24 @@ function LoginPage() {
                 
                 {/* Email input */}
                 <div className="form-outline mb-4">
+                   <label className="form-label" htmlFor="form1Example13">Email address</label>
                   <input 
                     type="email"
                     name="email"
                     placeholder="Email Address"
                     onChange={handleChange}
                       id="form1Example13" className="form-control form-control-lg" />
-                  <label className="form-label" htmlFor="form1Example13">Email address</label>
                 </div>
 
                 {/* Password input */}
                 <div className="form-outline mb-4">
+                  <label className="form-label" htmlFor="form1Example23">Password</label>
                   <input 
                     type="password"
                     name="password"
                     placeholder="Password"
                     onChange={handleChange}
                     id="form1Example23" className="form-control form-control-lg" />
-                  <label className="form-label" htmlFor="form1Example23">Password</label>
                 </div>
 
                 <div className="d-flex justify-content-around align-items-center mb-4">
@@ -82,12 +82,14 @@ function LoginPage() {
                 </div>
 
                 {/* Submit button */}
-                <button type="submit" className="btn btn-block btn-primary btn-lg">Sign in</button>
-
+                <div className="text-center">
+                  <button type="submit" className="btn btn-block btn-primary btn-lg">Sign in</button>
+                </div>
+{/*
                 <div className="divider d-flex align-items-center my-4">
                   <p className="text-center fw-bold mx-3 mb-0 text-muted">OR</p>
                 </div>
-{/*
+
                 <a className="btn btn-primary btn-lg btn-block" style="background-color: #3b5998" href="#!"
                   role="button">
                   <i className="fab fa-facebook-f me-2"></i>Continue with Facebook

@@ -1,0 +1,13 @@
+{
+    "menu": {
+        "inicio": "Home",
+        "formulario": "Form",
+        "usuarios": "Users",
+        "dashboard": "Dashboard",
+        "login": "Login",
+        "contacto": "Contact",
+        "idioma": "Language"
+    },
+    "title": "App Nextjs Example",
+    "home2": "Home"
+}

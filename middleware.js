@@ -5,7 +5,7 @@ import { jwtVerify } from "jose";
 export async function middleware(request) {
   const jwt = request.cookies.get("myTokenName");
 
-  console.log(`middleware en ${request.url}`);
+  //console.log(`middleware en ${request.url}`);
 
   if (!jwt) return NextResponse.redirect(new URL("/login", request.url));
 
@@ -26,7 +26,7 @@ export async function middleware(request) {
       jwt,
       new TextEncoder().encode(process.env.SECRET)
     );
-    console.log({ payload });
+    //console.log({ payload });
     return NextResponse.next();
   } catch (error) {
     console.log(error);
@@ -35,5 +35,5 @@ export async function middleware(request) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*"], // :path* para todas las subrutas
+  matcher: ["/private/:path*"], // :path* para todas las subrutas
 };

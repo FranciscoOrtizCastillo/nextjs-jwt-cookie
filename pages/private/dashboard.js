@@ -4,10 +4,7 @@ import { useRouter } from "next/router";
 
 function DashboardPage() {
 
-  const [user, setUser] = useState({
-    email: "",
-    username: "",
-  });
+  const [user, setUser] = useState(null);
 
   const router = useRouter();
 
@@ -32,12 +29,12 @@ function DashboardPage() {
   };
 
   return (
-    <main className="bg-dark text-white">
+    <main className="bg-light text-black">
       <h1 className="text-center">Dashboard</h1>
       <section className="vh-100">
         <div className="container py-5 h-100">
           <div className="row d-flex align-items-center justify-content-center h-20">
-            <pre className="col-auto">{JSON.stringify(user,null,2)}</pre>
+            { user && (<pre className="col-auto">{JSON.stringify(user,null,2)}</pre>) }
           </div>
             <div className="row d-flex align-items-center justify-content-center">
               <button className="col-2 mx-5 btn btn-primary" onClick={() => getProfile()}>Get Profile</button>
