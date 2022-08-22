@@ -82,6 +82,7 @@ const server = createServer({
   },
   endpoint: '/api/graphql',
   graphiql: false, // uncomment to disable GraphiQL
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   plugins: [useGraphQLMiddleware([logInput, isLoggedIn, logResult])],
 })
 

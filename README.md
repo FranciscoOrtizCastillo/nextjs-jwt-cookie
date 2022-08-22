@@ -35,9 +35,11 @@ https://blog.flycode.com/step-by-step-how-to-internationalize-your-nextjs-app-wi
 
 https://github.com/vercel/next.js/tree/canary/examples/api-routes-graphql
 
+https://www.graphql-yoga.com/docs/quick-start
+
 ```
 npm install graphql @graphql-yoga/node
-npm install @envelop/graphql-middleware
+npm install @envelop/graphql-middleware --force
 
 npm install swr
 ```
