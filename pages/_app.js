@@ -1,6 +1,8 @@
 import { Layout } from '../src/components/Layout'
 
 import '../styles/globals.css'
+import '../styles/Navbar.css'
+
 // add bootstrap css 
 import 'bootstrap/dist/css/bootstrap.css'
 

@@ -11,9 +11,9 @@ export default function Navbar() {
   return (
     <>
     <Script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"/>
-    <header className="navbar navbar-expand-md">
+    <header id="navbar" className="navbar navbar-expand-md">
       <nav className="container-xxl flex-wrap flex-md-nowrap">
-        <span className="navbar-brand p-0 me-2">
+        <span className="navbar-brand p-0 me-2 text-light">
           Ejemplo App Nextjs
         </span>
         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#bdNavbar" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -24,14 +24,14 @@ export default function Navbar() {
             {navLinks.map((link, index) => {
               return (
                   <Link href={link.path} key={index}>
-                    <li className="nav-item nav-link navbar-text me-3">{t(link.name)}</li>
+                    <li className={['text-light nav-item nav-link navbar-text me-3'].join(' ') } >{t(link.name)}</li>
                   </Link>
               );
             })}
           </ul>
           <ul className="navbar-nav flex-row flex-wrap ms-md-auto">
             <li className="nav-item dropdown me-3">
-              <a className="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+              <a className="text-light nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
               {t("menu.idioma")}
               </a>
               <ul className="dropdown-menu" aria-labelledby="navbarDropdown">

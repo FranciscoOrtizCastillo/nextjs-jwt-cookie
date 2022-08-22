@@ -15,12 +15,12 @@ export default function Form() {
                                 name="first"
                                 required
                             />
-                            <div id="emailHelp" className="form-text">We'll never share your email with anyone else.</div>
+                            {/*<div id="emailHelp" className="form-text">***********</div>*/}
                         </div>
 
                         <div className="mt-3">
-                            <label htmlFor="last">Last Name</label>
-                            <input  className="form-control" type="text" id="last" name="last" required />
+                            <label className="form-label" htmlFor="last">Last Name</label>
+                            <input className="form-control" type="text" id="last" name="last" required />
                         </div>
 
                         <div className="form-group mt-3">

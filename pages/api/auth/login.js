@@ -18,7 +18,7 @@ export default function loginHandler(req, res) {
       process.env.SECRET
     );
 
-    const serialized = serialize("myTokenName", token, {
+    const serialized = serialize("accessToken", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production", // only send cookie over https in production
       sameSite: "strict",

@@ -3,8 +3,7 @@ import { NextResponse } from "next/server";
 import { jwtVerify } from "jose";
 
 export async function middleware(request) {
-  const jwt = request.cookies.get("myTokenName");
-
+  const jwt = request.cookies.get("accessToken");
   //console.log(`middleware en ${request.url}`);
 
   if (!jwt) return NextResponse.redirect(new URL("/login", request.url));

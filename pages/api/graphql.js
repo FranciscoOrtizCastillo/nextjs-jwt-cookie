@@ -1,10 +1,10 @@
-import { createServer } from '@graphql-yoga/node'
+import { createServer, GraphQLYogaError } from '@graphql-yoga/node'
 import { useGraphQLMiddleware } from '@envelop/graphql-middleware'
+import { jwtVerify } from "jose";
 
 const typeDefs = /* GraphQL */ `
   type Query {
     users: [User!]!
-    secured: String!
   }
   type User {
     name: String
@@ -14,25 +14,44 @@ const typeDefs = /* GraphQL */ `
 const resolvers = {
   Query: {
     users() {
-      return [{ name: 'Admin' }, { name: 'User' }]
+      console.log(`resolver: users`)
+      return [{ name: 'Admin' }, { name: 'User' }, { name: 'Customer' }]
     },
   },
 }
 
 // Middleware - Permissions
-const code = 'supersecret'
-const isLoggedIn = async (resolve, parent, args, ctx, info) => {
 
-  console.log('Yoga authenticate')
+const getCookiesAsCollection = function (rawCookie) {
+  const cookies = {};
+  rawCookie && rawCookie.split(';').forEach(function (cookie) {
+      const parts = cookie.match(/(.*?)=(.*)$/);
+      if (parts && parts.length) {
+          cookies[parts[1].trim()] = (parts[2] || '').trim();
+      }
+  });
+  return cookies;
+};
 
-  // Include your agent code as Authorization: <token> header.
-  const permit = ctx.request.get('Authorization') === code
+const isLoggedIn = async (resolve, root, args, context, info) => {
 
-  if (!permit) {
-    throw new Error(`Not authorised!`)
+  const cookies = getCookiesAsCollection(context.request.headers.get('cookie'));
+  const jwt = cookies.accessToken;
+
+  if (!jwt) throw new GraphQLYogaError(`Not authorised!`)
+
+  try {
+    const { payload } = await jwtVerify(
+      jwt,
+      new TextEncoder().encode(process.env.SECRET)
+    );
+    //console.log({ payload });
+    //console.log('authenticate OK !!!')
+    return await resolve(root, args, context, info)
+  } catch (error) {
+    console.log(error);
+    throw new GraphQLYogaError(`Not authorised!`)
   }
-
-  return resolve()
 }
 
 const permissions = {
@@ -42,6 +61,20 @@ const permissions = {
   User: isLoggedIn,
 }
 
+const logInput = async (resolve, root, args, context, info) => {
+  console.log(`logInput: ${JSON.stringify(args)}`)
+  const result = await resolve(root, args, context, info)
+  //console.log(`logInput`)
+  return result
+}
+
+const logResult = async (resolve, root, args, context, info) => {
+  //console.log(`logResult`)
+  const result = await resolve(root, args, context, info)
+  console.log(`logResult: ${JSON.stringify(result)}`)
+  return result
+}
+
 const server = createServer({
   schema: {
     typeDefs,
@@ -49,7 +82,7 @@ const server = createServer({
   },
   endpoint: '/api/graphql',
   graphiql: false, // uncomment to disable GraphiQL
-  plugins: [useGraphQLMiddleware([permissions])],
+  plugins: [useGraphQLMiddleware([logInput, isLoggedIn, logResult])],
 })
 
 export default server

@@ -1,16 +1,16 @@
 import jwt from "jsonwebtoken";
 
 export default function profileHandler(req, res) {
-  const { myTokenName } = req.cookies;
+  const { accessToken } = req.cookies;
   
-  if (!myTokenName) {
+  if (!accessToken) {
     return res.status(401).json({ error: "Not logged in" });
   }
 
-  //const data = jwt.verify(myTokenName, process.env.SECRET);
+  //const data = jwt.verify(accessToken, process.env.SECRET);
   //console.log(data)
   try {
-    const { email, username } = jwt.verify(myTokenName, process.env.SECRET);  
+    const { email, username } = jwt.verify(accessToken, process.env.SECRET);  
     return res.status(200).json({ email, username });
   }
   catch (error) {
