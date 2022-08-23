@@ -69,6 +69,7 @@ const server = createServer({
   graphiql: false, // uncomment to disable GraphiQL
   // eslint-disable-next-line react-hooks/rules-of-hooks
   //plugins: [useGraphQLMiddleware([logInput, isLoggedIn, logResult])],
+  // eslint-disable-next-line react-hooks/rules-of-hooks
   plugins: [useGraphQLMiddleware([isLoggedIn])],
 })
 
