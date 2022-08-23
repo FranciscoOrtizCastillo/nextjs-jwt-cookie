@@ -1,24 +1,9 @@
 import { createServer, GraphQLYogaError } from '@graphql-yoga/node'
 import { useGraphQLMiddleware } from '@envelop/graphql-middleware'
 import { jwtVerify } from "jose";
-
-const typeDefs = /* GraphQL */ `
-  type Query {
-    users: [User!]!
-  }
-  type User {
-    name: String
-  }
-`
-
-const resolvers = {
-  Query: {
-    users() {
-      console.log(`resolver: users`)
-      return [{ name: 'Admin' }, { name: 'User' }, { name: 'Customer' }]
-    },
-  },
-}
+import { csrf } from '../../src/csrf/csrf';
+import { typeDefs } from '../../src/graphql/schema'
+import resolvers from '../../src/graphql/resolvers'
 
 // Middleware - Permissions
 
@@ -62,7 +47,7 @@ const permissions = {
 }
 
 const logInput = async (resolve, root, args, context, info) => {
-  console.log(`logInput: ${JSON.stringify(args)}`)
+  //console.log(`logInput: ${JSON.stringify(args)}`)
   const result = await resolve(root, args, context, info)
   //console.log(`logInput`)
   return result
@@ -71,7 +56,7 @@ const logInput = async (resolve, root, args, context, info) => {
 const logResult = async (resolve, root, args, context, info) => {
   //console.log(`logResult`)
   const result = await resolve(root, args, context, info)
-  console.log(`logResult: ${JSON.stringify(result)}`)
+  //console.log(`logResult: ${JSON.stringify(result)}`)
   return result
 }
 
@@ -83,7 +68,8 @@ const server = createServer({
   endpoint: '/api/graphql',
   graphiql: false, // uncomment to disable GraphiQL
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  plugins: [useGraphQLMiddleware([logInput, isLoggedIn, logResult])],
+  //plugins: [useGraphQLMiddleware([logInput, isLoggedIn, logResult])],
+  plugins: [useGraphQLMiddleware([isLoggedIn])],
 })
 
-export default server
+export default csrf(server)

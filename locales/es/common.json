@@ -1,8 +1,8 @@
 {
     "menu": {
         "inicio": "Inicio",
-        "formulario": "Formulario",
         "usuarios": "Usuarios",
+        "formulario": "Añadir Usuario",
         "dashboard": "Dashboard",
         "login": "Login",
         "contacto": "Contacto",

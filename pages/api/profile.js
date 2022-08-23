@@ -1,6 +1,8 @@
 import jwt from "jsonwebtoken";
 
-export default function profileHandler(req, res) {
+import { csrf } from '../../src/csrf/csrf';
+
+function profileHandler(req, res) {
   const { accessToken } = req.cookies;
   
   if (!accessToken) {
@@ -17,3 +19,5 @@ export default function profileHandler(req, res) {
     return res.status(401).json({ error: "Invalid token" });
   }
 }
+
+export default csrf(profileHandler)

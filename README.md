@@ -1,5 +1,6 @@
 # Nextjs Autenticación con Json Web Tokens (JWT), y Rutas Protegidas con Middlewares
 
+## Next.js
 
 ```
 npx next --version
@@ -32,7 +33,6 @@ https://blog.flycode.com/step-by-step-how-to-internationalize-your-nextjs-app-wi
 
 ## GraphQL Server
 
-
 https://github.com/vercel/next.js/tree/canary/examples/api-routes-graphql
 
 https://www.graphql-yoga.com/docs/quick-start
@@ -43,3 +43,31 @@ npm install @envelop/graphql-middleware --force
 
 npm install swr
 ```
+
+## ORM Prisma
+
+```
+npm install -D prisma
+npm install @prisma/client
+
+npx prisma init
+
+npx prisma migrate dev --name init
+
+npm install uuid
+```
+
+## CSRF (Cross-Site Request Forgery)
+
+https://www.npmjs.com/package/next-csrf
+
+```
+npm i next-csrf
+
+curl -X POST http://localhost:3000/api/graphql
+{"message":"Invalid CSRF token"}       
+
+```
+
+
+## Test

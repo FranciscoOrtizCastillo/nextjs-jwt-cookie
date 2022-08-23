@@ -1,7 +1,9 @@
 import { verify } from "jsonwebtoken";
 import { serialize } from "cookie";
+import { csrf } from '../../../src/csrf/csrf';
 
-export default function logoutHandler(req, res) {
+function logoutHandler(req, res) {
+  
   const { accessToken } = req.cookies;
 
   if (!accessToken) {
@@ -25,3 +27,5 @@ export default function logoutHandler(req, res) {
     return res.status(401).json({ error: "Invalid token" });
   }
 }
+
+export default csrf(logoutHandler)

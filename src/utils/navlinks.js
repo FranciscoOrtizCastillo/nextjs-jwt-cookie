@@ -3,13 +3,12 @@ export const navLinks = [
      path: "/" 
     },
     {
-      name: "menu.formulario",
-      path: "/private/form",
-    },
-    ,
-    {
       name: "menu.usuarios",
       path: "/private/users",
+    },
+    {
+      name: "menu.formulario",
+      path: "/private/adduser",
     },
     {
       name: "menu.dashboard",
