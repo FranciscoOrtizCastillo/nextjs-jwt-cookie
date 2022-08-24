@@ -9,6 +9,7 @@ import {
     Cell,
 } from '@table-library/react-table-library/table';
 import { usePagination } from '@table-library/react-table-library/pagination';
+import { useTheme } from '@table-library/react-table-library/theme';
 
 import useTranslation from 'next-translate/useTranslation';
 
@@ -30,9 +31,31 @@ function TablePage({ users }) {
         //console.log(action, state);
     }
 
+    const theme = useTheme({
+      HeaderRow: `
+        font-size: 20px !important;
+        background-color: #FFFFFF !important;
+
+        .th {
+          border-top: 1px solid #a0a8ae;
+          border-bottom: 1px solid #a0a8ae;
+          background-color: #FFFFFF !important;
+        }
+      `,
+      Row: `
+        &:nth-of-type(odd) .td {
+          background-color: #FFFFFF;
+        }
+
+        &:nth-of-type(even) .td {
+          background-color: #f5f5f5;
+        }
+      `,
+    });
+    
     return (
       <div className="mt-5 mx-5">
-        <Table  data={data} pagination={pagination}>
+        <Table  data={data} pagination={pagination} theme={theme}>
             {(tableList) => (
                 <>
                 <Header>
