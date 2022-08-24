@@ -1,0 +1,5 @@
+{
+    "franja-paginacion": "Mostrando registros del {{start}} al {{end}} de un total de {{length}} registros",
+    "anterior":" < Anterior",
+    "siguiente":" Siguiente >"
+}

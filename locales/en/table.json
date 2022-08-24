@@ -1,0 +1,5 @@
+{
+    "franja-paginacion": "Displaying {{start}} to {{end}} records out of a total of {{length}} records",
+    "anterior":" < Previous",
+    "siguiente":" Next >"
+}

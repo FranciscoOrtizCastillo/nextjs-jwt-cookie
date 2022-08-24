@@ -69,5 +69,16 @@ curl -X POST http://localhost:3000/api/graphql
 
 ```
 
+## Tablas
+
+https://github.com/TanStack/table
+@tanstack/react-table
+
+
+https://react-table-library.com/?path=/story/getting-started-installation--page
+
+```
+npm install @table-library/react-table-library @emotion/react
+````
 
 ## Test

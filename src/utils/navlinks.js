@@ -15,6 +15,10 @@ export const navLinks = [
       path: "/private/dashboard",
     },
     {
+      name: "menu.tabla",
+      path: "/table",
+    },
+    {
       name: "menu.login",
       path: "/login",
     },
