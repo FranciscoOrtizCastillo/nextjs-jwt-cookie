@@ -2,11 +2,16 @@ import { NextResponse } from "next/server";
 // import jwt from "jsonwebtoken";  No porque da error The edge runtime does not support Node.js buffer module. https://nextjs.org/docs/messages/node-module-in-edge-runtime
 import { jwtVerify } from "jose";
 
+import logger from './src/logger/loggerS'
+
 export async function middleware(request) {
   const jwt = request.cookies.get("accessToken");
-  //console.log(`middleware en ${request.url}`);
+  logger.info(`middleware en ${request.url}`,jwt);
 
-  if (!jwt) return NextResponse.redirect(new URL("/login", request.url));
+  if (!jwt) {
+    if (request.url.includes('/api/')) return NextResponse.redirect(new URL('/api/auth/unauthorized', request.url));
+    else return NextResponse.redirect(new URL("/login", request.url));
+  }
 
   // this condition avoid to show the login page if the user is logged in
   // if (jwt) {
@@ -28,11 +33,11 @@ export async function middleware(request) {
     //console.log({ payload });
     return NextResponse.next();
   } catch (error) {
-    console.log(error);
-    return NextResponse.redirect(new URL("/login", request.url));
+    if (request.url.includes('/api/')) return NextResponse.redirect(new URL('/api/auth/unauthorized', request.url));
+    else return NextResponse.redirect(new URL("/login", request.url));
   }
 }
 
 export const config = {
-  matcher: ["/private/:path*"], // :path* para todas las subrutas
+  matcher: ["/private/:path*","/api/private/:path*"], // :path* para todas las subrutas
 };

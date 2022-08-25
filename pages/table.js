@@ -13,6 +13,8 @@ import { useTheme } from '@table-library/react-table-library/theme';
 
 import useTranslation from 'next-translate/useTranslation';
 
+import logger from '../src/logger/loggerS'
+
 function TablePage({ users }) {
 
     const { t } = useTranslation('table');
@@ -184,10 +186,11 @@ function TablePage({ users }) {
 }
 
 // This gets called on every request
-export async function getServerSideProps({ req, res }) {
+export async function getServerSideProps(context) {
+    logger.info(context)
     // Fetch data from external API
     //const res = await fetch(`https://randomuser.me/api/?nat=es&results=5000`)
-    const response = await fetch(`https://randomuser.me/api/?nat=es&page=3&results=200&seed=abc&inc=gender,name,login`)
+    const response = await fetch(`https://randomuser.me/api/?nat=es&results=200&seed=abc&inc=gender,name,login`)
     const data = await response.json()
     //console.log(data)
   

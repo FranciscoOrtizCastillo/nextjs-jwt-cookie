@@ -34,3 +34,6 @@ yarn-error.log*
 #prisma
 /src/prisma/migrations*
 /src/prisma/dev.db*
+
+#log
+*.log
